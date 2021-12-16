@@ -4,6 +4,7 @@ using UnityEngine;
 public class CubeMovement : MonoBehaviour {
 
     private Stack<Command> Commands = new Stack<Command>();
+    public GameObject CubePrefab;
     
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Z)) {
@@ -30,6 +31,14 @@ public class CubeMovement : MonoBehaviour {
             Command command = new ColorSwapCommand(transform);
             command.Do();
             Commands.Push(command);
+        }
+        if (Input.GetKeyDown(KeyCode.E)) {
+            Command command = new DuplicateCommand(transform, CubePrefab);
+            command.Do();
+            Commands.Push(command);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
         }
         if (Input.GetButtonDown("Jump") && Commands.Count > 0) {
             Command command = Commands.Pop();
